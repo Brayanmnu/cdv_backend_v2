@@ -15,7 +15,7 @@ host, port, db, usr, pwd = get_values_database_sql('database_remote')
 async def get_all_iglesia():
     dict_json = []
     try:
-        conn = utils.conexion_mysql(host,db,usr,pwd)
+        conn = utils.conexion_postgres(host,port,db,usr,pwd)
         query = "SELECT JSON_ARRAYAGG(JSON_OBJECT('id', id_iglesia, 'nombre', nombre)) from iglesia"
         cursor = conn.cursor()
         cursor.execute(query)

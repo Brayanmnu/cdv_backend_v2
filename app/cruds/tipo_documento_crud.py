@@ -15,7 +15,7 @@ host, port, db, usr, pwd = get_values_database_sql('database_remote')
 async def get_all_tipo_documento():
     dict_json = []
     try:
-        conn = utils.conexion_mysql(host,db,usr,pwd)
+        conn = utils.conexion_postgres(host,port,db,usr,pwd)
         query = "SELECT  id_tipo_documento , descripcion from tipo_documento"
         cursor = conn.cursor()
         cursor.execute(query)

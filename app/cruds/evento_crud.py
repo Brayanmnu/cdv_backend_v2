@@ -15,7 +15,7 @@ host, port, db, usr, pwd = get_values_database_sql('database_remote')
 async def get_evento_publicado():
     json_evento = ""
     try:
-        conn = utils.conexion_mysql(host,db,usr,pwd)
+        conn = utils.conexion_postgres(host,port,db,usr,pwd)
         query = "SELECT id, descripcion FROM evento WHERE publicado=1 "
         cursor = conn.cursor()
         cursor.execute(query)
