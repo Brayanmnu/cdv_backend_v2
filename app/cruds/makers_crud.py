@@ -10,12 +10,20 @@ router = APIRouter(
 
 host, port, db, usr, pwd = get_values_database_sql('database_remote')
 
-@router.get("/")
-async def get_all_makers():
+@router.get("/{cant_registro}/{nro_pagina}")
+async def get_makers(cant_registro: str,nro_pagina: str, nombre: str| None = None, apellido:str| None = None, nro_doc: str| None = None):
     dict_json = []
     try:
+        filter = ""
+        if nombre:
+            filter = f"and UPPER(m.nombres) like '%{nombre}%' "
+        if apellido:
+            filter = filter + f"and UPPER(m.apellidos) like '%{apellido}%' "
+        if nro_doc:
+            filter = filter + f"and UPPER(m.apellidos) like '%{nro_doc}%' "
+        
         conn = utils.conexion_postgres(host,port,db,usr,pwd)
-        query = "select row_to_json(row) from (select m.id_makerv2, me.id as id_maker_evento, m.nro_doc, m.nombres, m.apellidos, m.email, m.celular, m.fecha_creacion, m.fecha_actualizacion  from makerv2 m inner join maker_evento me on m.id_makerv2=me.id_makerv2 where m.estado=1 order by m.fecha_actualizacion desc) row"
+        query = f"select row_to_json(row) from (select  count(*) OVER() AS total_elements, m.id_makerv2, me.id as id_maker_evento, m.nro_doc, m.nombres, m.apellidos, m.email, m.celular, m.fecha_creacion, m.fecha_actualizacion  from makerv2 m inner join maker_evento me on m.id_makerv2=me.id_makerv2 where m.estado=1 {filter} order by m.fecha_actualizacion desc limit {cant_registro} offset {nro_pagina}) row"
         cursor = conn.cursor()
         cursor.execute(query)
         print('Query ejecutado')
