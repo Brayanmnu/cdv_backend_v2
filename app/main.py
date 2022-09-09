@@ -17,6 +17,7 @@ app.include_router(makers_crud.router)
 #MODULES
 app.include_router(registro_maker.router)
 app.include_router(asistencia.router)
+app.include_router(login.router)
 app.include_router(maker_qr.router)
 
 
