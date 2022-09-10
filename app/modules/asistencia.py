@@ -7,7 +7,7 @@ router = APIRouter(
     prefix="/asistencia",
     tags=["asistencia"])
 
-host, port, db, usr, pwd = get_values_database_sql("database_remote")
+host, port, db, usr, pwd = get_values_database_sql("database_pdn")
 
 class Asistencia(BaseModel):
     id_maker_evento: str

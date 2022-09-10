@@ -7,7 +7,7 @@ router = APIRouter(
     prefix="/login",
     tags=["login"])
 
-host, port, db, usr, pwd = get_values_database_sql("database_remote")
+host, port, db, usr, pwd = get_values_database_sql("database_pdn")
 
 class Login(BaseModel):
     usuario: str

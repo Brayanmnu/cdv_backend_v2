@@ -8,7 +8,7 @@ router = APIRouter(
     tags=["makers"]
     )
 
-host, port, db, usr, pwd = get_values_database_sql('database_remote')
+host, port, db, usr, pwd = get_values_database_sql('database_pdn')
 
 @router.get("/{cant_registro}/{nro_pagina}")
 async def get_makers(cant_registro: str,nro_pagina: str, nombre: str| None = None, apellido:str| None = None, nro_doc: str| None = None):

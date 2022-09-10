@@ -16,7 +16,7 @@ router = APIRouter(
     tags=["registrar-maker"]
     )
 
-host, port, db, usr, pwd = get_values_database_sql('database_remote')
+host, port, db, usr, pwd = get_values_database_sql('database_pdn')
 
 uri_qr, database_no_sql_qr, collection_db_qr = get_values_database_nosql_collection_qr('mongodb_pdn')
 

@@ -9,7 +9,7 @@ router = APIRouter(
     tags=["evento"]
     )
 
-host, port, db, usr, pwd = get_values_database_sql('database_remote')
+host, port, db, usr, pwd = get_values_database_sql('database_pdn')
 
 @router.get("/publicado")
 async def get_evento_publicado():
