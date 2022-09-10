@@ -12,7 +12,6 @@ SECCION DONDE SE LLAMAN A LAS APIS DESARROLLADAS
 app.include_router(tipo_documento_crud.router)
 app.include_router(evento_crud.router)
 app.include_router(makers_crud.router)
-#app.include_router(ciudad_crud.router)
 
 #MODULES
 app.include_router(registro_maker.router)
