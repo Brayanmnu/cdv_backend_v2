@@ -19,11 +19,19 @@ async def get_evento_publicado():
         query = "SELECT id, descripcion FROM evento WHERE publicado=1 "
         cursor = conn.cursor()
         cursor.execute(query)
-        print('Query ejecutado')
+        print('Query evento ejecutado')
         records = cursor.fetchone()
+        id = records[0]
+        descripcion = records[1]
+        query = "select cantidad-(select count(1) from makerv2 m ) as disponible from aforo"
+        cursor.execute(query)
+        print('Query aforo ejecutado')
+        records = cursor.fetchone()
+        disponible = records[0]
         json_evento = {
-            "id":records[0],
-            "descripcion":records[1]
+            "id":id,
+            "descripcion":descripcion,
+            "disponible": disponible
         }
     except Exception as error:
         print(f'Ocurrió un error inesperado{error.__str__}')
@@ -33,4 +41,3 @@ async def get_evento_publicado():
             conn.close()
             print('conexion terminada')
     return json_evento
-
