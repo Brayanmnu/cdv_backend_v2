@@ -23,7 +23,7 @@ async def get_evento_publicado():
         records = cursor.fetchone()
         id = records[0]
         descripcion = records[1]
-        query = "select cantidad-(select count(1) from makerv2 m ) as disponible from aforo"
+        query = "select cantidad-(select count(1) from makerv2 m where estado =1) as disponible from aforo"
         cursor.execute(query)
         print('Query aforo ejecutado')
         records = cursor.fetchone()
