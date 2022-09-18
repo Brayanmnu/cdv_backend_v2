@@ -30,6 +30,11 @@ async def get_makers(cant_registro: str,nro_pagina: str, nombre: str| None = Non
         if cursor.rowcount > 0:
             records = cursor.fetchall()
             for row in records:
+                query_cartilla = 'select count(1) from asistencia a2 where id_ponencia = 6';
+                cursor.execute(query_cartilla)
+                records_cartilla = cursor.fetchone()
+                cant_cartillas = records_cartilla[0]
+
                 query_asistencia = "select row_to_json(row) from (select p.id as nro_ponencia from  asistencia a inner join ponencia p on p.id = a.id_ponencia where a.id_maker_evento = %s) row"
                 cursor.execute(query_asistencia,(row[2],))
                 records_asistencia = cursor.fetchall()
@@ -51,6 +56,7 @@ async def get_makers(cant_registro: str,nro_pagina: str, nombre: str| None = Non
                     'iglesia': row[9],
                     'fecha_creacion': row[10],
                     'fecha_actualizacion': row[11],
+                    'cant_cartillas': cant_cartillas,
                     'nro_asistencia': asistencias
                 }
                 dict_json.append(json_maker)
