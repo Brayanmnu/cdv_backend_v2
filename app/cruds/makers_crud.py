@@ -20,7 +20,7 @@ async def get_makers(cant_registro: str,nro_pagina: str, nombre: str| None = Non
         if apellido:
             filter = filter + f"and UPPER(m.apellidos) like '%{apellido}%' "
         if nro_doc:
-            filter = filter + f"and UPPER(m.apellidos) like '%{nro_doc}%' "
+            filter = filter + f"and UPPER(m.nro_doc) like '%{nro_doc}%' "
         
         conn = utils.conexion_postgres(host,port,db,usr,pwd)
         query = f"select  count(*) OVER() AS total_elements, m.id_makerv2, me.id as id_maker_evento, m.nro_doc, m.nombres, m.apellidos, m.email, m.celular, me.ciudad , me.iglesia, m.fecha_creacion, m.fecha_actualizacion  from makerv2 m inner join maker_evento me on m.id_makerv2=me.id_makerv2 where m.estado=1 {filter} order by m.fecha_actualizacion desc limit {cant_registro} offset {nro_pagina}"
