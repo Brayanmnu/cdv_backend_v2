@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.cruds import tipo_documento_crud, evento_crud,makers_crud
-from app.modules import registro_maker,asistencia,login,maker_qr,send_message_whatsapp
+from app.modules import registro_maker,asistencia,login,maker_qr#,send_message_whatsapp
 
 
 app = FastAPI()
@@ -19,7 +19,7 @@ app.include_router(registro_maker.router)
 app.include_router(asistencia.router)
 app.include_router(login.router)
 app.include_router(maker_qr.router)
-app.include_router(send_message_whatsapp.router)
+#app.include_router(send_message_whatsapp.router)
 
 
 '''
