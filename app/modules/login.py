@@ -18,13 +18,20 @@ async def login_load(login: Login):
     try:
         conn = utils.conexion_postgres(host,port,db,usr,pwd)
         cursor = conn.cursor()
-        select_query = "select row_to_json(row) from (select count(1) as status from usuariov2 where usuario = %s and pwd = %s ) row"
+        select_query = "select tipo_usuario from usuariov2 where usuario = %s and pwd = %s "
         cursor.execute(select_query,(login.usuario, login.password))
         conn.commit()
         print('Query ejecutado')
         if cursor.rowcount > 0:
             dict_json = cursor.fetchone()
-            dict_json = dict_json[0]
+            dict_json = {
+                "status":"1",
+                "tipo_usuario":dict_json[0]    
+            }
+        else:
+            dict_json ={
+                "status":"0"
+            }
     except Exception as error:
         dict_json = {"status": "error"}
         print(f'Ocurrió un error inesperado: {error}')
