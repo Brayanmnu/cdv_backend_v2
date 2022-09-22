@@ -26,7 +26,7 @@ async def login_load(login: Login):
             dict_json = cursor.fetchone()
             dict_json = {
                 "status":"1",
-                "tipo_usuario":dict_json[0]    
+                "tipo_usuario":str(dict_json[0])   
             }
         else:
             dict_json ={
